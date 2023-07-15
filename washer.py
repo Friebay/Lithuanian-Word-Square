@@ -10,16 +10,28 @@ def save_words_in_column(filename, words):
 def count_words(words):
     return len(words)
 
- #Open the file "r" = read mode
+# Open the file "r" = read mode
 with open(filemame + ".txt", "r", encoding="utf-8") as file:
     lines = file.readlines()
     words = []
+    
     for line in lines:
         line_words = line.strip().split()
-        if len(line_words) == 2 or len(line_words) == 3 or len(line_words) == 4:
-            words.extend(line_words)
+        
+        # Check if the line has words combined by underscores
+        combined_words = []
+        for word in line_words:
+            if "_" in word:
+                combined_words.extend(word.split("_"))
+            else:
+                combined_words.append(word)
+        
+        # Extend or append the individual words based on the number of words in the line
+        if 2 <= len(combined_words) <= 10:
+            words.extend(combined_words)
         else:
             words.append(line.strip())
+
             
 words = [word.upper() for word in words]
 
