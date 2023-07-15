@@ -49080,9 +49080,7 @@ ham
 hamakas
 hamt
 hanba
-hanibalas
-prie
-vartu
+hanibalas prie vartu
 harcavninkas
 harcovninkas
 haremas
@@ -119995,6 +119993,7 @@ pridygimas
 pridziovimas
 pridziovinimas
 pridziuvimas
+prie
 prieaikste
 prieaikstis
 prieakinis
@@ -153135,8 +153134,7 @@ sodnavagis
 sodnus
 sodnyste
 sodoklis
-sodoma
-gomora
+sodoma ir gomora
 sodonis
 sodpalaikis
 sodrejimas
