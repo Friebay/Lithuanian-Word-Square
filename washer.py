@@ -1,4 +1,4 @@
-filemame = "1"
+filemame = "4"
 
 # Save to file "w" = write mode
 def save_words_in_column(filename, words):
@@ -16,7 +16,7 @@ with open(filemame + ".txt", "r", encoding="utf-8") as file:
     words = []
     for line in lines:
         line_words = line.strip().split()
-        if len(line_words) == 2:
+        if len(line_words) == 2 or len(line_words) == 3 or len(line_words) == 4:
             words.extend(line_words)
         else:
             words.append(line.strip())
