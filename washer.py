@@ -1,4 +1,4 @@
-filemame = "4"
+filemame = "all"
 
 # Save to file "w" = write mode
 def save_words_in_column(filename, words):
@@ -20,11 +20,11 @@ with open(filemame + ".txt", "r", encoding="utf-8") as file:
             words.extend(line_words)
         else:
             words.append(line.strip())
+            
+words = [word.upper() for word in words]
 
 unique_words = set()
-
 non_repeating_words = []
-
 repeating_words = []
 
 for word in words:
