@@ -1,4 +1,4 @@
-filemame = "all"
+filemame = "modified_testing_cleaned"
 
 # Save to file "w" = write mode
 def save_words_in_column(filename, words):
@@ -21,10 +21,8 @@ with open(filemame + ".txt", "r", encoding="utf-8") as file:
         # Check if the line has words combined by underscores
         combined_words = []
         for word in line_words:
-            if "_" in word:
-                combined_words.extend(word.split("_"))
             if "/" in word:
-                combined_words.extend(word.split("_"))
+                combined_words.extend(word.split("/"))
             else:
                 combined_words.append(word)
         
