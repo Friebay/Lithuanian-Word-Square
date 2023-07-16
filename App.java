@@ -10,11 +10,11 @@ public class App
     static final int    ALPHABET_SIZE = ALPHABET.length();
 
     public static void main(String[] args) {
-        final int n = 20; // word square size
+        final int n = 8; // word square size
 
         System.out.println("start: " + now());
 
-        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\20_length_words.txt", n); // trie of dictionary words of length n
+        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\by_length\\8_length_words.txt", n); // trie of dictionary words of length n
 
         // trie set is used to determine a set of all possible next characters at trie node t[i][j] (representing string prefix)
         // and starting at d character from t[i][j]
