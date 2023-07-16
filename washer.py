@@ -1,4 +1,4 @@
-filemame = "modified_testing_cleaned"
+filemame = "all_cleaned"
 
 # Save to file "w" = write mode
 def save_words_in_column(filename, words):
