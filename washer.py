@@ -23,6 +23,8 @@ with open(filemame + ".txt", "r", encoding="utf-8") as file:
         for word in line_words:
             if "_" in word:
                 combined_words.extend(word.split("_"))
+            if "/" in word:
+                combined_words.extend(word.split("_"))
             else:
                 combined_words.append(word)
         
