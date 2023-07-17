@@ -1,4 +1,4 @@
-filemame = "all_cleaned"
+filemame = "all"
 
 # Save to file "w" = write mode
 def save_words_in_column(filename, words):
@@ -33,7 +33,7 @@ with open(filemame + ".txt", "r", encoding="utf-8") as file:
             words.append(line.strip())
 
             
-words = [word.upper() for word in words]
+words = [word.lower() for word in words]
 
 unique_words = set()
 non_repeating_words = []

@@ -14,26 +14,22 @@ public class App
 
         System.out.println("start: " + now());
 
-        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\by_length\\8_length_words.txt", n); // trie of dictionary words of length n
+        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\8_length_words.txt", n); // trie of dictionary words of length n
 
-        // trie set is used to determine a set of all possible next characters at trie node t[i][j] (representing string prefix)
-        // and starting at d character from t[i][j]
-        // ts[i][d][j] : trie set for trie node t[i][j] with at distance d from t[i][j] (i.e. d characters next to t[i][j])
         final boolean[][][] ts = trieSet(t, n);
 
-        final int[] si = traversal(n, true);  // i coordinate for every step of the words square traversal
-        final int[] sj = traversal(n, false);  // j coordinate for every step of the words square traversal
+        final int[] si = traversal(n, true); 
+        final int[] sj = traversal(n, false); 
         final int nSteps = si.length;
 
-        final int [][] m = new int[n][n];  // index of character in ALPHABET array placed in word square cell
-        final int [][] h = new int[n][n];  // trie node index in horizontal direction of word square character
-        final int [][] v = new int[n][n];  // trie node index in vertical direction of word square character
+        final int [][] m = new int[n][n]; 
+        final int [][] h = new int[n][n];  
+        final int [][] v = new int[n][n]; 
 
-        // candidate characters: c[i][j][k] indicates that character with code k is a valid candidate at m[i][j]
         final boolean [][][] c = new boolean[n][n][ALPHABET_SIZE];
 
         final Character startCharacter = 'a';
-        int step = 0;  // step index in word square creation
+        int step = 0;
         boolean forward = false;
         m[0][0] = ALPHABET.indexOf(startCharacter) - 1;
 
@@ -44,44 +40,24 @@ public class App
         for(;;) {
             final int i = si[step];
             final int j = sj[step];
-
-            // hL = horizontal direction expansion of word prefix starting at m[i][0] and ending at m[i][j]
             final int[] hL = j == 0 ? t[0] : t[h[i][j - 1]];
-            // vL = vertical direction expansion of word prefix starting at m[0][j] and ending at m[i][j]
             final int[] vL = i == 0 ? t[0] : t[v[i - 1][j]];
-
-            // expansion of prefixes ending at transposed element m[j][i]
-            // hU = horizontal direction expansion of word prefix starting at m[j][0] and ending at m[j][i]
             final int[] hU = i == 0 ? t[0] : t[h[j][i - 1]];
-            // vU = vertical direction expansion of word prefix starting at m[0][i] and ending at m[j][i]
             final int[] vU = j == 0 ? t[0] : t[v[j - 1][i]];
-
-            // try next character at position m[i][j]
             int match = forward ? 0 : m[i][j] + 1;
-
-            // find a match character at m[i,j] in horizontal and vertical direction
             for (; match < ALPHABET_SIZE; ++match) {
-                // check if extensions of word in range m[i][0].. m[i][j] in horizontal direction (hL[i][j])
-                //                matches crossing word in range m[0][j].. m[i][j] in vertical direction (hL[i][j])
-                // analogous test is performed for transposed element m[j][i]
-                if (hL[match] == 0 || vL[match] == 0 || hU[match] == 0 || vU[match] == 0)
+                 if (hL[match] == 0 || vL[match] == 0 || hU[match] == 0 || vU[match] == 0)
                     continue;
-
-                // check if m[i][j] = match can be extended vertically towards m[i + j][j] (check only rows in the diagonal ending at m[i + j][0]
-                // as lower rows are minimally constrained and won't contribute to pruning significantly
                 if (j > 0) {
                     final boolean[][] vNode = ts[vL[match]];
                     boolean isMatch = true;
                     final int nRows = i + j >= n ? n - i : j;
-
                     for (int d = nRows; d > 0; --d) {
                         if (i + d >= n)
                             break;
-
                         final boolean[] s1 = vNode[d];
                         final int hNode = h[i + d][j - d];
                         final boolean[] s2 = ts[hNode][d];
-
                         boolean isSetMatch = false;
                         for (int k = 0; k < ALPHABET_SIZE; ++k) {
                             if (s1[k] && s2[k]) {
@@ -89,50 +65,14 @@ public class App
                                 break;
                             }
                         }
-
                         if (!isSetMatch) {
                             isMatch = false;
                             break;
                         }
                     }
-
                     if (!isMatch)
                         continue;
                 }
-
-                // omitted due to no gain in program execution speed
-                /* check rows below m[i][j] matching m[j][i] in vertical direction
-                if ((i + 1) < n) {
-                    final boolean[][] vNode = ts[vU[match]];
-                    boolean isMatch = true;
-                    final int nRows = i + j >= n ? n - i : j + 1;
-
-                    for (int d = nRows - 1; d > 0; --d) {
-                        final boolean[] s1 = vNode[d + i - j];
-                        final int hNode = h[i + d][j - d];
-                        final boolean[] s2 = ts[hNode][d + i - j];
-
-                        boolean isSetMatch = false;
-                        for (int k = 0; k < ALPHABET_SIZE; ++k) {
-                            if (s1[k] && s2[k]) {
-                                isSetMatch = true;
-                                break;
-                            }
-                        }
-
-                        if (!isSetMatch) {
-                            isMatch = false;
-                            break;
-                        }
-                    }
-
-                    if (!isMatch)
-                        continue;
-                }
-                */
-
-                // check if m[j][i] = match can be extended vertically towards m[i + j][i] (check only rows in the diagonal ending at m[i + j - 1][0]
-                // as lower rows are minimally constrained and won't contribute to pruning significantly
                 if (i > j) {
                     final boolean[][] vNode = ts[vU[match]];
                     boolean isMatch = true;
@@ -232,13 +172,6 @@ public class App
     }
 
     private static int[][] loadDictionary(final String fileName, final int n) {
-        /*
-            the boxed trie array is initially a 1x26 array, representing the root node of the trie with ALPHABET_SIZE
-            possible children (one for each letter of the alphabet). When a new word is inserted into the trie,
-            the implementation iterates over each character in the word, and for each character, checks if there is
-            a child node for that character. If not, it creates a new row in the trie array to represent the child
-            node, and updates the parent node's corresponding entry in the trie array to point to the new child node.
-         */
 
         final List<String> words = loadDictionaryWords(fileName, n);
         if (words.size() < n)
@@ -246,24 +179,23 @@ public class App
 
         final List<Integer> zeros = Collections.nCopies(ALPHABET_SIZE, 0);
         final ArrayList<ArrayList<Integer>> trie = new ArrayList<>();
-        trie.add(new ArrayList<>(zeros)); // root of the trie
+        trie.add(new ArrayList<>(zeros)); 
 
         for (final String word : words) {
             int node = 0;
 
             for (final char c : word.toCharArray()) {
-                // map character to index which is in the [0..ALPHABET_SIZE) range
+               
                 final int index = ALPHABET.indexOf(c);
                 if (trie.get(node).get(index) == 0) {
-                    trie.get(node).set(index, trie.size()); // update pointer to new word
-                    trie.add(new ArrayList<>(zeros)); // initialize new word
+                    trie.get(node).set(index, trie.size()); 
+                    trie.add(new ArrayList<>(zeros)); 
                 }
 
                 node = trie.get(node).get(index);
             }
         }
 
-        // convert to 2D array
         int[][] result = new int[trie.size()][ALPHABET_SIZE];
 
         for (int i = 0, size = trie.size(); i < size; ++i) {
@@ -347,11 +279,11 @@ public class App
         return result;
     }
 
-    private static boolean isValidWord(final String word) {
-        for (final char c : word.toCharArray()) {
-            if (ALPHABET.indexOf(c) == -1)
-                return false;
-        }
-        return ! word.isEmpty();
+static boolean isValidWord(final String word) {
+    for (final char c : word.toCharArray()) {
+        if (ALPHABET.indexOf(c) == -1)
+            return false;
+    }
+    return true;
     }
 }
