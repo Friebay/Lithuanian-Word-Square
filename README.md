@@ -1,1 +1,93 @@
-# Lithuanian-Word-Square
+# Lithuanian Word Square Generator
+
+This project aims to find the largest possible word square using Lithuanian words. A word square is an arrangement of words where the nth row reads the same as the nth column.
+
+## Project Overview
+
+This project uses multiple Lithuanian word databases to maximize the vocabulary available for creating word squares. The databases contain words from various sources including dictionaries, place names, borrowed terms, and more.
+
+## Database Sources
+
+The project incorporates six different Lithuanian word databases:
+
+### 1. **Hunspell-Zodynai-ir-gramatika-v.45/**
+- **Format**: `.dic` files (Hunspell dictionary format)
+- **Content**: General Lithuanian dictionary with 181,527+ entries
+- **Structure**: Each line contains a word followed by grammatical information
+- **Example**: `abakas/7	5` (word with morphological flags)
+
+### 2. **ispell-lt/**
+- **Format**: Various text files (`.zodziai`, `.vardai`, `.veiksmazodziai`, etc.)
+- **Content**: Specialized word lists including regular words, names, verbs, and jargon
+- **Structure**: Plain text with some grammatical annotations
+- **Files**:
+  - `lietuviu.zodziai` - General words (~10,234 entries)
+  - `lietuviu.vardai` - Personal names
+  - `lietuviu.veiksmazodziai` - Verbs
+  - `lietuviu.jargon` - Slang/jargon terms
+
+### 3. **Lietuviu-kalbos-rasybos-tikrintuvai-bei-Hunspell-zodynai-gramatika/**
+- **Format**: `.dic` files (Hunspell format)
+- **Content**: Alternative Lithuanian spelling checker dictionary
+- **Purpose**: Provides additional word variants and forms
+
+### 4. **lithuanian-words-txt/**
+- **Format**: `.txt` file
+- **Content**: Plain text list of Lithuanian words (83,258+ entries)
+- **Structure**: One word per line, alphabetically sorted
+- **Example**: `a`, `AB`, `Abakai`, `Abarauskai`
+
+### 5. **SkolintuZodynas/**
+- **Format**: `.json` file
+- **Content**: Dictionary of borrowed terms in Lithuanian
+- **Structure**: JSON with detailed entries including etymology, definitions, and translations
+- **Features**: Contains accented forms, synonyms, and multilingual translations
+
+### 6. **vietovardziu_zodynas/**
+- **Format**: `.csv` file
+- **Content**: Lithuanian place names dictionary (12,265+ entries)
+- **Structure**: CSV with columns for place codes, full names, grammatical forms, etc.
+- **Fields**: `vietovardis` (place name), `linksniai` (declensions), `vietovardzio_rusis` (type)
+
+## Step 1: Word Extraction and Normalization
+
+The first phase involves extracting and standardizing all words from the various database formats into a unified format.
+
+### Extraction Process
+
+#### 1. **Hunspell Dictionary Processing** (`.dic` files)
+- Parse each line to extract the base word (before `/` or grammatical markers)
+- Remove morphological flags and numerical codes
+- Handle special characters and diacritics properly
+
+#### 2. **Text File Processing** (`.txt`, `.zodziai`, etc.)
+- Read line by line
+- Remove grammatical annotations (e.g., `/D`, `/BUN`)
+- Extract clean word forms
+
+#### 3. **JSON Processing** (`SkolintuZodynas`)
+- Parse CSV structure to extract `terminas`
+
+#### 4. **CSV Processing** (`vietovardziu_zodynas`)
+- Parse CSV structure to extract `vietovardis_pilnas_nekirciuotas`
+
+### Output Format Options
+
+Given the computational intensity of word square generation, multiple output formats will be created:
+
+#### **Primary Storage: SQLite Database** (`words.db`)
+
+### Data Quality Considerations
+
+- **Character Encoding**: Ensure proper handling of Lithuanian diacritics (ą, č, ę, ė, į, š, ų, ū, ž)
+- **Case Normalization**: Store both original and lowercase forms
+- **Length Filtering**: Pre-compute length statistics for algorithm optimization
+- **Frequency Data**: Track word usage frequency for prioritization
+
+### Implementation Strategy
+
+#### **Programming Language Recommendations:**
+1. **Python**: Good for prototyping, excellent libraries (sqlite3, pandas)
+2. **C++**: Best performance for final implementation
+3. **Rust**: Memory safety + performance
+4. **Go**: Good concurrency for parallel search
