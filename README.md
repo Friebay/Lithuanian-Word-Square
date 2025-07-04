@@ -8,9 +8,15 @@ This project uses multiple Lithuanian word databases to maximize the vocabulary 
 
 ## Database Sources
 
-The project incorporates six different Lithuanian word databases:
+The project incorporates seven different Lithuanian word databases:
 
-### 1. **Hunspell-Zodynai-ir-gramatika-v.45/**
+### 1. **common_voice_17/**
+- **Format**: `.tsv` files (Tab-separated values)
+- **Content**: Common Voice dataset with Lithuanian sentences and words
+- **Structure**: Tab-separated format with sentence data
+- **Source**: https://huggingface.co/datasets/mozilla-foundation/common_voice_17_0
+
+### 2. **Hunspell-Zodynai-ir-gramatika-v.45/**
 - **Format**: `.dic` files (Hunspell dictionary format)
 - **Content**: General Lithuanian dictionary with 181,527+ entries
 - **Structure**: Each line contains a word followed by grammatical information
@@ -20,6 +26,7 @@ The project incorporates six different Lithuanian word databases:
 - **Format**: Various text files (`.zodziai`, `.vardai`, `.veiksmazodziai`, etc.)
 - **Content**: Specialized word lists including regular words, names, verbs, and jargon
 - **Structure**: Plain text with some grammatical annotations
+- **Source**: https://github.com/ispell-lt/ispell-lt
 - **Files**:
   - `lietuviu.zodziai` - General words (~10,234 entries)
   - `lietuviu.vardai` - Personal names
@@ -30,24 +37,34 @@ The project incorporates six different Lithuanian word databases:
 - **Format**: `.dic` files (Hunspell format)
 - **Content**: Alternative Lithuanian spelling checker dictionary
 - **Purpose**: Provides additional word variants and forms
+- **Source**: https://github.com/Semantika2/Lietuviu-kalbos-rasybos-tikrintuvai-bei-Hunspell-zodynai-gramatika
 
-### 4. **lithuanian-words-txt/**
+### 4. **Lithuanian-Hunspell-dictionary/**
+- **Format**: `.dic` files (Hunspell format)
+- **Content**: Lithuanian Hunspell dictionary
+- **Structure**: Standard Hunspell dictionary format
+- **Source**: https://clarin.vdu.lt/xmlui/handle/20.500.11821/64
+
+### 5. **lithuanian-words-txt/**
 - **Format**: `.txt` file
 - **Content**: Plain text list of Lithuanian words (83,258+ entries)
 - **Structure**: One word per line, alphabetically sorted
 - **Example**: `a`, `AB`, `Abakai`, `Abarauskai`
+- **Source**: https://github.com/giekaton/lithuanian-words-txt
 
-### 5. **SkolintuZodynas/**
+### 6. **SkolintuZodynas/**
 - **Format**: `.json` file
 - **Content**: Dictionary of borrowed terms in Lithuanian
 - **Structure**: JSON with detailed entries including etymology, definitions, and translations
 - **Features**: Contains accented forms, synonyms, and multilingual translations
+- **Source**: https://data.gov.lt/datasets/2883/#info
 
-### 6. **vietovardziu_zodynas/**
+### 7. **vietovardziu_zodynas/**
 - **Format**: `.csv` file
 - **Content**: Lithuanian place names dictionary (12,265+ entries)
 - **Structure**: CSV with columns for place codes, full names, grammatical forms, etc.
 - **Fields**: `vietovardis` (place name), `linksniai` (declensions), `vietovardzio_rusis` (type)
+- **Source**: https://data.gov.lt/datasets/2937/
 
 ## Step 1: Word Extraction and Normalization
 
