@@ -6,15 +6,15 @@ import java.util.*;
 
 public class App
 {
-    static final String ALPHABET      = "abcdefghijklmnopqrstuvwxyząčęėįšųūž";
+    static final String ALPHABET      = "abcdefghijklmnopqrstuvyząčęėįšųūž";
     static final int    ALPHABET_SIZE = ALPHABET.length();
 
     public static void main(String[] args) {
-        final int n = 8; // word square size
+        final int n = 11; // word square size
 
         System.out.println("start: " + now());
 
-        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\8_length_words.txt", n); // trie of dictionary words of length n
+        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\11_length_words.txt", n); // trie of dictionary words of length n
 
         final boolean[][][] ts = trieSet(t, n);
 
@@ -212,7 +212,8 @@ public class App
     private static List<String> loadDictionaryWords(final String fileName, final int n) {
         final Set<String> set = new HashSet<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader br = new BufferedReader(new java.io.InputStreamReader(
+                new java.io.FileInputStream(fileName), java.nio.charset.StandardCharsets.UTF_8))) {
             String word;
             while ((word = br.readLine()) != null) {
                 if (word.length() != n ||

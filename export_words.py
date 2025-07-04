@@ -34,4 +34,4 @@ def export_n_length_words(word_length=5):
 
 if __name__ == "__main__":
     # Change this value to export words of different lengths
-    export_n_length_words(8)
+    export_n_length_words(11)
