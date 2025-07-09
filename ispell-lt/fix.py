@@ -1,8 +1,6 @@
 input_files = [
     "ispell-lt/lietuviu.ivairus",
     "ispell-lt/lietuviu.ivpk",
-    "ispell-lt/lietuviu.jargon",
-    "ispell-lt/lietuviu.vardai",
     "ispell-lt/lietuviu.veiksmazodziai",
     "ispell-lt/lietuviu.zodziai"
 ]

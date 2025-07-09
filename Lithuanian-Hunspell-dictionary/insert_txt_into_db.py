@@ -24,7 +24,7 @@ def insert_words_from_file():
     
     # Get paths
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    txt_file_path = os.path.join(script_dir, 'lt-LT_plus_substandard_cleaned.txt')
+    txt_file_path = os.path.join(script_dir, 'lt_LT_cleaned.txt')
     db_path = os.path.join(os.path.dirname(script_dir), 'words.db')
     
     # Check if files exist

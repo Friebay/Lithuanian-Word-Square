@@ -160,7 +160,7 @@ The project includes a Python script to export words of specific lengths from th
 
 **Example:** To export all 5-letter words, change the script to `export_n_length_words(5)` and run it. This will create `5_length_words.txt` with all 5-letter Lithuanian words from the database.
 
-### Using App.java
+## Using App.java
 
 The Java word square generator is based on the algorithm from [matevz-kovacic/word-square](https://github.com/matevz-kovacic/word-square) and has been modified to work with Lithuanian letters and the Lithuanian alphabet.
 

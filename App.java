@@ -10,11 +10,11 @@ public class App
     static final int    ALPHABET_SIZE = ALPHABET.length();
 
     public static void main(String[] args) {
-        final int n = 11; // word square size
+        final int n = 8; // word square size
 
         System.out.println("start: " + now());
 
-        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\11_length_words.txt", n); // trie of dictionary words of length n
+        final int[][] t = loadDictionary("C:\\Users\\zabit\\Documents\\GitHub\\Lithuanian-Word-Square\\8_length_words.txt", n); // trie of dictionary words of length n
 
         final boolean[][][] ts = trieSet(t, n);
 
