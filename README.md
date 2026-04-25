@@ -17,18 +17,12 @@ git clone https://github.com/Friebay/Lithuanian-Word-Square.git
 cd Lithuanian-Word-Square
 ```
 
-### Step 2: Set Up the Database
+### Step 2: Install Dependencies
 
-The project uses an SQLite database to store all Lithuanian words. You have two options:
-
-#### Option A: Use Pre-built Database
-TODO: add link
-
-#### Option B: Build Database from Source Data
-Run the database setup script and create the database yourself:
+Install the required Python packages:
 
 ```bash
-python setup_database.py
+pip install -r requirements.txt
 ```
 
 ## Database Sources
@@ -82,30 +76,22 @@ The first phase involves extracting and standardizing all words from the various
 
 ## Running the Java Code
 
-If you want to run the latest Java implementation of the word square generator, use `App_Parallelized.java` and the precomputed 8-letter word list.
+If you want to run the latest Java implementation of the word square generator, use `App_Parallelized.java` with a precomputed word list.
 
 ### Prerequisites
 - Java Development Kit (JDK) installed on your system
 - `App_Parallelized.class` compiled from `App_Parallelized.java`
-- `8_letters.txt` generated and available in the repository root
+- A word list file (e.g., `8_letters.txt`) generated from the combined word counts
 
-### Generate `8_letters.txt`
+### Generate a Word List
 
-The project already includes a pipeline that produces `8_letters.txt` from combined corpus counts.
+The project uses `combined_word_counts.tsv` as the source for extracting words of specific lengths.
 
-Option A: Use `combine_counts.ipynb`
+**Using `combine_counts.ipynb` (Recommended):**
 1. Open `combine_counts.ipynb` in Jupyter.
-2. Set `n = 8` in the cell that filters the combined word counts.
-3. Run the cell that reads `combined_word_counts.tsv` and saves `8_letters.txt`.
-
-Option B: Use the database export script
-1. Open `export_words.py`.
-2. Change the export call to `export_n_length_words(8)`.
-3. Run:
-   ```bash
-   python export_words.py
-   ```
-4. Rename the generated file to `8_letters.txt` if needed.
+2. Run the cells to aggregate word counts from all sources and generate `combined_word_counts.tsv`.
+3. Set `n = 8` in the cell that filters the combined word counts.
+4. Run the cell that reads `combined_word_counts.tsv` and saves `8_letters.txt`.
 
 ### Compile the parallel Java solver
 
@@ -133,26 +119,22 @@ This batch file launches `App_Parallelized` in four parallel JVM processes, each
 
 ## Exporting Words by Length
 
-The project includes a Python script to export words of specific lengths from the database:
+The project uses `combined_word_counts.tsv` to extract words of specific lengths for the word square generator.
 
-### Using export_words.py
+### Using `combine_counts.ipynb`
 
-1. **Modify the script** to specify your desired word length:
-   - Open `export_words.py`
-   - Change the parameter in the last line: `export_n_length_words(10)` 
-   - Replace `10` with your desired word length
+1. **Run the aggregation:** Open `combine_counts.ipynb` in Jupyter and run all cells to generate `combined_word_counts.tsv`.
 
-2. **Run the script:**
-   ```bash
-   python export_words.py
-   ```
+2. **Filter by length:** In the notebook, modify the cell that filters words:
+   - Change `n = 8` to your desired word length
+   - The notebook will create a file named `{n}_letters.txt` with all words of that length
 
 3. **Output:**
-   - Creates a file named `{length}_length_words.txt` (e.g., `10_length_words.txt`)
+   - Creates a file named `{n}_letters.txt` (e.g., `8_letters.txt`)
    - Contains all unique words of the specified length, one per line
-   - Words are exported in lowercase and sorted alphabetically
+   - Words are filtered from `combined_word_counts.tsv` and sorted alphabetically
 
-**Example:** To export all 5-letter words, change the script to `export_n_length_words(5)` and run it. This will create `5_length_words.txt` with all 5-letter Lithuanian words from the database.
+**Example:** To export all 5-letter words, set `n = 5` in the notebook and run the filtering cell. This will create `5_letters.txt` with all 5-letter Lithuanian words from the combined corpus.
 
 ## Using App.java
 
