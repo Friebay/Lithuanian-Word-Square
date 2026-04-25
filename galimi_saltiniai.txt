@@ -1,0 +1,26 @@
+scrape https://www.lituanistika.lt/content/1
+
+view-source:http://www.lkz.lt/Zodziai.asp?txtZodis=a&nrLn=-1&nrLe=-1&zdId=-1&tstMode=0 nuo a iki ž
+http://www.subtitrai.net/subtitrai.html
+
+https://sitti.vdu.lt/wp-content/uploads/2019/06/
+
+http://jaunimas.sociolingvistika.lt//?lid=2
+
+http://www.ims.mii.lt/EK%C5%BD/enciklo.html
+
+https://liteko.teismai.lt/viesasprendimupaieska/paieska.aspx?detali=2&bnr=&byloseilesnr=&procesinisnr=&eilnr=False&tid=&trid=&br=&dr=&nuo=2025.09.01%2000:00:00&iki=&teis=&tk=&bb=&rakt=&txt=&kat=&term=&ikir=False
+
+https://data.europa.eu/data/datasets?locale=lt&dataScope=countryData&country=lt&page=1
+
+https://opus.nlpl.eu/
+
+https://en.wiktionary.org/wiki/Wiktionary:Frequency_lists/Lithuanian
+
+wordnet
+
+https://huggingface.co/datasets/HuggingFaceFW/fineweb-2
+
+darbo, baudziamasis kodeksai
+
+https://huggingface.co/datasets/HuggingFaceFW/finepdfs-edu/viewer/lit_Latn

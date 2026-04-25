@@ -38,7 +38,7 @@ The project incorporates eight different Lithuanian word databases:
 ### 1. **common_voice_17/**
 - **Format**: `.tsv` files (Tab-separated values)
 - **Content**: Common Voice dataset with Lithuanian sentences and words
-- **Source**: https://huggingface.co/datasets/mozilla-foundation/common_voice_17_0
+- **Source**: https://huggingface.co/datasets/mozilla-foundation/common_voice_17_0/tree/main/transcript/lt
 
 ### 2. **Hunspell-Zodynai-ir-gramatika-v.45/**
 - **Format**: `.dic` files (Hunspell dictionary format)
@@ -82,10 +82,54 @@ The first phase involves extracting and standardizing all words from the various
 
 ## Running the Java Code
 
-If you want to run the Java implementation of the word square generator:
+If you want to run the latest Java implementation of the word square generator, use `App_Parallelized.java` and the precomputed 8-letter word list.
 
 ### Prerequisites
 - Java Development Kit (JDK) installed on your system
+- `App_Parallelized.class` compiled from `App_Parallelized.java`
+- `8_letters.txt` generated and available in the repository root
+
+### Generate `8_letters.txt`
+
+The project already includes a pipeline that produces `8_letters.txt` from combined corpus counts.
+
+Option A: Use `combine_counts.ipynb`
+1. Open `combine_counts.ipynb` in Jupyter.
+2. Set `n = 8` in the cell that filters the combined word counts.
+3. Run the cell that reads `combined_word_counts.tsv` and saves `8_letters.txt`.
+
+Option B: Use the database export script
+1. Open `export_words.py`.
+2. Change the export call to `export_n_length_words(8)`.
+3. Run:
+   ```bash
+   python export_words.py
+   ```
+4. Rename the generated file to `8_letters.txt` if needed.
+
+### Compile the parallel Java solver
+
+From the repository root:
+
+```powershell
+cd "c:\Users\zabit\Documents\GitHub\Lithuanian-Word-Square"
+javac App_Parallelized.java
+```
+
+### Run the parallel solver with the 8-letter list
+
+```powershell
+.\run_parallel_by_ranges_update.bat
+```
+
+This batch file launches `App_Parallelized` in four parallel JVM processes, each handling a different range of first-letter indices.
+
+### Example: 8-letter word square run
+
+- Input word list: `8_letters.txt`
+- Java source: `App_Parallelized.java`
+- Runner: `run_parallel_by_ranges_update.bat`
+- Expected behavior: the solver loads `8_letters.txt`, divides the first-letter search range across processes, and searches for 8-letter Lithuanian word squares.
 
 ## Exporting Words by Length
 
